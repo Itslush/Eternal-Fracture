@@ -1,4 +1,4 @@
-# Eternal fracture
+# Eternal Fracture
 
 A simple C# console app lagswitch for debugging or cheating in fps games.
 
