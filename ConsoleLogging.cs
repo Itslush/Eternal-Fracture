@@ -61,6 +61,7 @@ namespace EternalFracture
             Log("Press 'T' to toggle input mode between Global and Local inputs.", InfoColor);
             Log("Press 'S' to set temporary disable duration.", InfoColor);
             Log("Press 'R' to temporarily disable the network for the set duration.", InfoColor);
+            Log("Press 'C' to clear console output.", InfoColor);
             Console.WriteLine();
         }
 
