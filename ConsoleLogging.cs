@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EternalFracture
 {
-    internal class ConsoleLogging
+    class ConsoleLogging
     {
         public static LogLevel _CurrentLogLevel = LogLevel.Detailed;
         public static LogLevel ReturnLogLevel { get { return _CurrentLogLevel; } }
@@ -25,7 +25,13 @@ namespace EternalFracture
             Console.WriteLine(message);
             Console.ResetColor();
         }
+        public static void ClearLogs()
+        {
+            Console.Clear();
 
+            DisplayHeader();
+            DisplayInstructions();
+        }
         public static void ToggleLoggingLevel()
         {
             _CurrentLogLevel = _CurrentLogLevel == LogLevel.Detailed ? LogLevel.Minimal : LogLevel.Detailed;
@@ -36,12 +42,13 @@ namespace EternalFracture
         {
             Console.Clear();
             Log(@"
-    ______ _                        _    __                _                  
-   |  ____| |                      | |  / _|              | |                 
-   | |__  | |_ ___ _ __ _ __   __ _| | | |_ _ __ __ _  ___| |_ _   _ _ __ ___ 
-   |  __| | __/ _ \ '__| '_ \ / _` | | |  _| '__/ _` |/ __| __| | | | '__/ _ \
-   | |____| ||  __/ |  | | | | (_| | | | | | | | (_| | (__| |_| |_| | | |  __/
-   |______|\__\___|_|  |_| |_|\__,_|_| |_| |_|  \__,_|\___|\__|\__,_|_|  \___|", TimestampColor);
+  ______ _                        _   ______              _                  
+ |  ____| |                      | | |  ____|            | |                 
+ | |__  | |_ ___ _ __ _ __   __ _| | | |__ _ __ __ _  ___| |_ _   _ _ __ ___ 
+ |  __| | __/ _ \ '__| '_ \ / _` | | |  __| '__/ _` |/ __| __| | | | '__/ _ \
+ | |____| ||  __/ |  | | | | (_| | | | |  | | | (_| | (__| |_| |_| | | |  __/
+ |______|\__\___|_|  |_| |_|\__,_|_| |_|  |_|  \__,_|\___|\__|\__,_|_|  \___| ", TimestampColor);
+
             Console.WriteLine();
         }
 
@@ -62,7 +69,7 @@ namespace EternalFracture
             Log("Select Input Mode:", WarningColor);
             Log("1. Global Input", InfoColor);
             Log("2. Local Input", InfoColor);
-            Log("Enter your choice (1 or 2): ", WarningColor);
+            Log("Enter Your Choice (1/2): ", WarningColor);
 
             var choice = Console.ReadKey(true).KeyChar;
 
@@ -75,7 +82,16 @@ namespace EternalFracture
 
             Console.WriteLine();
             Log($"Input mode set to: {(InputHandler.UseAsyncKeyState ? "Global Key Detection" : "Application-Specific Key Input")}", InfoColor);
+            Thread.Sleep(300);
         }
+        /*public static void SelectNetworkDisableMethod()
+        {
+            Log("Select Which Method You Want To Use:", WarningColor);
+            Log("1. Windows Management Instrumentation", InfoColor);
+            Log("2. NetSH Advanced Firewall (Requires Application Path)", InfoColor);
+            Log("3. ", InfoColor);
+            Log("Enter Your Choice (1/2): ", WarningColor);
+        }*/
 
         public enum LogLevel
         {
