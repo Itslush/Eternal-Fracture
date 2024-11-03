@@ -71,6 +71,9 @@ namespace EternalFracture
 
             EnableAllNetworkInterfaces();
             Log("Network interfaces re-enabled.", SuccessColor);
+
+            Console.WriteLine("");
+            DisplayInstructions();
         }
 
         public static void SetDisableDuration()
