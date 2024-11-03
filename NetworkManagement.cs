@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Management;
@@ -8,7 +8,7 @@ using static EternalFracture.ConsoleLogging;
 
 namespace EternalFracture
 {
-    internal class NetworkManagement
+    class NetworkManagementWMI
     {
         private static readonly Dictionary<string, NetworkInterface> NetworkInterfaces = new();
 
@@ -64,39 +64,18 @@ namespace EternalFracture
 
             disableDurationSeconds = duration;
 
-            var uniqueNetworkInterfaces = new HashSet<NetworkInterface>();
-
-            foreach (var netInterface in NetworkInterfaces.Values)
-            {
-                uniqueNetworkInterfaces.Add(netInterface);
-            }
-
-            foreach (var netInterface in uniqueNetworkInterfaces)
-            {
-                var state = GetInterfaceState(netInterface.DeviceId);
-
-                if (state == "Enabled" || state == "Connected")
-                {
-                    DisableNetwork(netInterface);
-                }
-                else if (ConsoleLogging.ReturnLogLevel == LogLevel.Detailed)
-                {
-                    Log($"NetInterface | '{netInterface.Name}' already disabled.", ConsoleColor.Gray);
-                }
-            }
-
+            DisableAllNetworkInterfaces();
             Log($"Network interfaces disabled for {duration} seconds.", WarningColor);
 
-            new Thread(() =>
-            {
-                Thread.Sleep(duration * 1000);
-                EnableAllNetworkInterfaces();
-            }).Start();
+            Thread.Sleep(duration * 1000);
+
+            EnableAllNetworkInterfaces();
+            Log("Network interfaces re-enabled.", SuccessColor);
         }
 
         public static void SetDisableDuration()
         {
-            Console.Write("Enter the number of seconds to temporarily disable the network (min 5 seconds): ");
+            Log("Enter the number of seconds to temporarily disable the network (min 5 seconds): ", InfoColor);
 
             if (int.TryParse(Console.ReadLine(), out int seconds) && seconds >= 5)
             {
