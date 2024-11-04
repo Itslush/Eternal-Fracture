@@ -6,7 +6,7 @@ Requires administrator privileges due to the use of WMI.
 
 ## Features
 
-- **Enable/Disable All Interfaces**: Near-instantly kill or revive network access.
+- **Enable/Disable All Network Interfaces**: Near-instantly kill or revive network access.
 - **Temp Disable**: You know what this is used for.
 - **Toggle Input Modes**: Switch between Global and Local input detection.
 - **Logging Levels**: Get (semi)detailed logs or barely any.
